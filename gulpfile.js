@@ -4,7 +4,7 @@ var jade = require('gulp-jade');
 var rjs = require('gulp-requirejs');
 // add required packages
 var sass = require('gulp-sass');
-var uglify = require('gulp-uglifyjs');
+var uglify = require('gulp-uglify');
 
 gulp.task('connect', function() {
 	connect.server({
@@ -40,25 +40,23 @@ gulp.task('requireJS', function() {
 		out: 'bundle.js',
 		wrap: true
 	})
-	//.pipe(uglify())
-	//.pipe(gulp.dest('dist/js'))
+	.pipe(uglify())
 	.pipe(gulp.dest('dist/js'))
-
 	.pipe(connect.reload());
 });
 
-gulp.task('uglify', function(){
+/*gulp.task('uglify', function(){
      gulp.src('dist/js/*.js')
               .pipe(uglify())
               .pipe(gulp.dest('dist/js'))
               .pipe(connect.reload());
-});
+});*/
 
 gulp.task('watch', function() {
 	gulp.watch('src/jade/*.jade', ['jade']);
 	// add watch for .sass and .js files
 	gulp.watch('src/sass/*.sass', ['sass']);
-	gulp.watch('src/js/*.js', ['requireJS', 'uglify']);
+	gulp.watch('src/js/*.js', ['requireJS'/*, 'uglify'*/]);
 });
 
-gulp.task('default', ['requireJS', 'jade', 'sass', 'connect', 'watch', 'uglify']);
+gulp.task('default', ['requireJS', 'jade', 'sass', 'connect', 'watch'/*, 'uglify'*/]);
